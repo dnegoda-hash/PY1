@@ -1,0 +1,65 @@
+def add(x, y):
+    return x + y
+
+def subtract(x, y):
+    return x - y
+
+def multiply(x, y):
+    return x * y
+
+def divide(x, y):
+    if y == 0:
+        return "Ошибка: Деление на ноль"
+    return x / y
+
+def log(result):
+    with open("calculations.txt", "a") as file:
+        file.write(result + "\n")  # добавлен перевод строки для читаемости
+
+# Новая функция для просмотра истории вычислений
+def show_history():
+    try:
+        with open("calculations.txt", "r") as file:
+            history = file.readlines()
+        if not history:
+            print("История вычислений пуста.")
+        else:
+            print("\nИстория вычислений:")
+            for line in history:
+                print(line.strip())
+    except FileNotFoundError:
+        print("История вычислений пока отсутствует (файл не найден).")
+
+print("Выберите операцию: ")
+print("1. Сложение")
+print("2. Вычитание")
+print("3. Умножение")
+print("4. Деление")
+print("5. Просмотр истории вычислений")  # добавлен новый пункт
+
+choice = input("Введите номер операции (1/2/3/4/5): ")
+
+if choice == '5':  # обработка нового пункта меню
+    show_history()
+else:
+    num1 = int(input("Введите первое число: "))
+    num2 = int(input("Введите второе число: "))
+
+    if choice == '1':
+        r = f"Результат: {num1} + {num2} = {add(num1, num2)}"
+        print(r)
+        log(r)
+    elif choice == '2':
+        r = f"Результат: {num1} - {num2} = {subtract(num1, num2)}"
+        print(r)
+        log(r)
+    elif choice == '3':
+        r = f"Результат: {num1} * {num2} = {multiply(num1, num2)}"
+        print(r)
+        log(r)
+    elif choice == '4':
+        r = f"Результат: {num1} / {num2} = {divide(num1, num2)}"
+        print(r)
+        log(r)
+    else:
+        print("Неверный ввод")
