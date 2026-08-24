@@ -1,6 +1,6 @@
 from math import sqrt
 
-x = 5  # int
+x = 6 # int
 y = 5.45  # float
 name = 'Mary'  # str
 yes_no = True  # bool (False)
