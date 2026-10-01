@@ -12,24 +12,40 @@ def update_currency_label(event):
     currency_label.config(text=name)
 
 
+def update_currency_label2(event):
+    code = base2_combobox.get()
+    name = currencies[code]
+    currency_label2.config(text=name)
+
+
 def exchange():
     # code = entry.get().strip().upper()
     target_code = target_combobox.get()
     base_code = base_combobox.get()
+    base2_code = base2_combobox.get()
     if target_code and base_code:
         try:
             result = requests.get(f"https://open.er-api.com/v6/latest/{base_code}")
             result.raise_for_status()
             # data = json.loads(result.text)
             data = result.json()
-            if target_code in data['rates']:
+
+            result2 = requests.get(f"https://open.er-api.com/v6/latest/{base2_code}")
+            result2.raise_for_status()
+            data2 = result2.json()
+
+            if target_code in data['rates'] and target_code in data2['rates']:
                 exchange_rate = data['rates'][target_code]
+                exchange_rate2 = data2['rates'][target_code]
                 base = currencies[base_code]
+                base2 = currencies[base2_code]
                 target = currencies[target_code]
 
                 mb.showinfo('Курс обмена',
-                            f'Курс '
-                            f'  {exchange_rate:.1f}  {target} за 1 {base}')
+                            f'Курс {base}:\n'
+                            f'  {exchange_rate:.1f} {target} за 1 {base_code}\n\n'
+                            f'Курс {base2}:\n'
+                            f'  {exchange_rate2:.1f} {target} за 1 {base2_code}')
             else:
                 mb.showerror('Ошибка', f'Валюта {target_code} не найдена')
 
