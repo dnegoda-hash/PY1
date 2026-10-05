@@ -11,6 +11,7 @@ import requests
 class CryptoTrackerApp:
     """Главный класс приложения CryptoTracker Pro."""
 
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = CryptoTrackerApp(root)
